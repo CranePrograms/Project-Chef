@@ -38,7 +38,7 @@ public class MouseManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
 
-            if(gmScript.IsStudentSelected())
+            if(gmScript.IsMoveableUnitSelected())
             {
                 Vector3 pointToConvert = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 newMovePoint = new Vector2(pointToConvert.x, pointToConvert.y);

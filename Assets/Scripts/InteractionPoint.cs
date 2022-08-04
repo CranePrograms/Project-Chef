@@ -27,6 +27,7 @@ public class InteractionPoint : MonoBehaviour
                 break;
             case "Teacher":
 
+                attachedStation.SendMessage("SetStationTeacher", collision.gameObject);
                 break;
 
             default:
@@ -43,10 +44,11 @@ public class InteractionPoint : MonoBehaviour
             case "Student":
                 
                 //This could create a bug if two students somehow enter the same station must be dealt with soon tm.
-                attachedStation.SendMessage("RemoveStationStudent");
+                attachedStation.SendMessage("RemoveStationStudent", collision.gameObject);
                 break;
             case "Teacher":
 
+                attachedStation.SendMessage("RemoveStationTeacher", collision.gameObject);
                 break;
 
             default:

@@ -21,9 +21,9 @@ public class BarStation : StationBaseClass
         if (tickTimer >= 3)
         {
             tickTimer = 0;
-            if (student != null)
+            if (studentList.Count > 0 && teacherList.Count > 0)
             {
-                student.GetComponent<Creature>().AddStats(CHAR: 1);
+                studentList[0].GetComponent<Creature>().AddStats(CHAR: 1); //Grab the first student in the list they got there first after all.
             }
 
         }

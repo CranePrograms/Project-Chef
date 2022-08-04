@@ -6,11 +6,11 @@ using System.IO;
 public class CharacterGenerator : MonoBehaviour
 {
 
-    const string Name_File = "Chef_Names.txt";
-    const string Creature_File = "Creature_Names.txt";
 
-    public List<string> nameOptions = new List<string>();
-    public List<string> creatureOptions = new List<string>();
+
+    public List<string> nameOptions;
+    public List<string> creatureOptions;
+    public Dictionary<string, int> skillDictionary;
 
     //I'll eventually need something that provides ages based on creature type.
     const int MAX_AGE = 100;
@@ -25,10 +25,18 @@ public class CharacterGenerator : MonoBehaviour
     [SerializeField]
     private GameObject studentPrefab;
 
+    [SerializeField]
+    private FileUtilities fileUtilities;
+
+
+
+
     private void Start()
     {
-        LoadNames();
-        LoadCreatures();
+        
+        nameOptions = new List<string>(fileUtilities.GetNames());
+        creatureOptions = new List<string>(fileUtilities.GetCreatures());
+        skillDictionary = new Dictionary<string, int>(fileUtilities.GetSkills());
     }
 
 
@@ -43,6 +51,7 @@ public class CharacterGenerator : MonoBehaviour
         studentScript.SetColor(GenerateColor());
         GenerateStats();
         studentScript.SetStats(intelligence, charisma, endurance, dexterity);
+        studentScript.SetSkills(GenerateSkills());
         
 
     }
@@ -96,37 +105,22 @@ public class CharacterGenerator : MonoBehaviour
 
     }
 
-    private void LoadNames()
+    private Dictionary<string, int> GenerateSkills()
     {
 
-        var sr = new StreamReader(Application.dataPath + "/Resources/" + Name_File);
-        var fileContents = sr.ReadToEnd();
-        sr.Close();
+        List<string> keys = new List<string>(skillDictionary.Keys);
 
-        var lines = fileContents.Split("\n"[0]);
-        foreach (string line in lines)
+        foreach(string s in keys)
         {
-            nameOptions.Add(line);
-            //Debug.Log(line);
+            skillDictionary[s] = Random.Range(-10, 20); //assign a random initial value to each skill.
         }
 
+        return skillDictionary;
     }
 
-    private void LoadCreatures()
-    {
+    
 
-        var sr = new StreamReader(Application.dataPath + "/Resources/" + Creature_File);
-        var fileContents = sr.ReadToEnd();
-        sr.Close();
-
-        var lines = fileContents.Split("\n"[0]);
-        foreach (string line in lines)
-        {
-            creatureOptions.Add(line);
-            //Debug.Log(line);
-        }
-
-    }
+    
 
 
 }

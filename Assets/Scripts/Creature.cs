@@ -17,6 +17,8 @@ public class Creature : MonoBehaviour
     public int endurance;
     public int dexterity;
 
+    public Dictionary<string, int> skillsDictionary;
+
 
     public void SetName(string sName)
     {
@@ -49,6 +51,22 @@ public class Creature : MonoBehaviour
         endurance = END;
         dexterity = DEX;
 
+    }
+
+    public void SetSkills(Dictionary<string, int> skillDict)
+    {
+        if(skillDict != null)
+        {
+            skillsDictionary = skillDict;
+            
+            foreach(KeyValuePair<string, int> kvp in skillsDictionary)
+            {
+                Debug.Log(kvp.Key + " / " + kvp.Value);
+            }
+            
+        }
+        
+        
     }
 
     //Use this to add points to any of the stats this student has.

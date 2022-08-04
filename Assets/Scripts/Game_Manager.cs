@@ -27,7 +27,10 @@ public class Game_Manager : MonoBehaviour
             switch (lastSelectedObject.tag.ToString())
             {
                 case "Student":
-                    SetStudentSelectionSprite(selectedObject, false); //deselect it because we're selecting something new
+                    SetSelectionSprite(selectedObject, false); //deselect it because we're selecting something new
+                    break;
+                case "Teacher":
+                    SetSelectionSprite(selectedObject, false);
                     break;
 
                 default:
@@ -43,7 +46,11 @@ public class Game_Manager : MonoBehaviour
             case "Student":
                 selectedObject = newSelection;
                 Debug.Log("Selected " + selectedObject.GetComponent<Creature>().creatureName.ToString());
-                SetStudentSelectionSprite(selectedObject, true);
+                SetSelectionSprite(selectedObject, true);
+                break;
+            case "Teacher":
+                selectedObject = newSelection;
+                SetSelectionSprite(selectedObject, true);
                 break;
 
             default:
@@ -60,17 +67,17 @@ public class Game_Manager : MonoBehaviour
     /// </summary>
     /// <param name="gameObject"> The student to toggle selection of </param>
     /// <param name="visibility"> Should the Student_Selection_Sprite be visible? </param>
-    private void SetStudentSelectionSprite(GameObject gameObject, bool visibility)
+    private void SetSelectionSprite(GameObject gameObject, bool visibility)
     {
-        if(gameObject.CompareTag("Student"))
+        if(gameObject.CompareTag("Student") || gameObject.CompareTag("Teacher"))
         {
             gameObject.GetComponent<Creature_Controller>().SetSelectedSprite(visibility);
         }
     }
 
-    public bool IsStudentSelected()
+    public bool IsMoveableUnitSelected()
     {
-        return selectedObject.CompareTag("Student") ? true : false;
+        return selectedObject.CompareTag("Student") || selectedObject.CompareTag("Teacher") ? true : false;
         /*
         if(selectedObject.CompareTag("Student"))
         {
@@ -84,7 +91,7 @@ public class Game_Manager : MonoBehaviour
 
     public void MoveStudent(Vector2 newMovementPoint)
     {
-        if(selectedObject.CompareTag("Student"))
+        if(selectedObject.CompareTag("Student") || selectedObject.CompareTag("Teacher"))
         {
             selectedObject.GetComponent<Creature_Controller>().SetMovementPoint(newMovementPoint);
         }

@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c14d6c32ef392854c8fae2ca5bdd5bf6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7035799e837319241a1087c289140477, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,8 +99,8 @@ GameObject:
   - component: {fileID: 2123694373}
   - component: {fileID: 2123694372}
   m_Layer: 0
-  m_Name: Student
-  m_TagString: Student
+  m_Name: Teacher
+  m_TagString: Teacher
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: c14d6c32ef392854c8fae2ca5bdd5bf6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7035799e837319241a1087c289140477, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creatureName: ????
   creatureType: Missing No.??
-  isTeacher: 0
+  isTeacher: 1
   creatureAge: 999
   intelligence: 0
   charisma: 0

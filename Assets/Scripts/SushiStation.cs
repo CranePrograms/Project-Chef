@@ -23,9 +23,9 @@ public class SushiStation : StationBaseClass
         if (tickTimer >= 3)
         {
             tickTimer = 0;
-            if(student != null)
+            if(studentList.Count > 0 && teacherList.Count > 0)
             {
-                student.GetComponent<Creature>().AddStats(END: 1);
+                studentList[0].GetComponent<Creature>().AddStats(END: 1);
             }
             
         }

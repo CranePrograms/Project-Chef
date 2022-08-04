@@ -19,6 +19,9 @@ public class StationBaseClass: MonoBehaviour
     private float dexterityMod = 1.0f; //All of the potential modifiers for the station some may not be used at each station.
                                        //Mostly just here as preplanning for station upgrades.
 
+    public List<GameObject> studentList = new List<GameObject>(); //this is a list of students at the station in case there's ever more than one.
+    public List<GameObject> teacherList = new List<GameObject>(); //this is a list of teahers in case there's ever more than one.
+
     public enum StationType
     {
         Sushi,
@@ -69,31 +72,42 @@ public class StationBaseClass: MonoBehaviour
 
     #endregion
 
+    //If there's more than one student at a station there's no space to save it
+    //What if we just had a list of students at the station so in case there's ever more than one student we can just remove that actual object it's a bit slower but less prone to bugs.
+
+    //This will allow us to have multiple students at one station which could be useful later.
+    //This also allows us to priortize students to start by taking the first student in the list.
+
+
     public void SetStationStudent(GameObject newStudent)
     {
         if(newStudent.CompareTag("Student"))
         {
-            student = newStudent;
+            //student = newStudent;
+            studentList.Add(newStudent);
             Debug.Log("Set a new student! " + newStudent.name);
+            Debug.Log(studentList.ToString());
         }
     }
 
-    public void RemoveStationStudent()
+    public void RemoveStationStudent(GameObject leavingStudent)
     {
-        student = null;
+        //student = null;
+        studentList.Remove(leavingStudent);
+        Debug.Log(studentList.ToString());
     }
 
     public void SetStationTeacher(GameObject newTeacher)
     {
         if (newTeacher.CompareTag("Teacher"))
         {
-            teacher = newTeacher;
+            teacherList.Add(newTeacher);
         }
     }
 
-    public void RemoveStationTeacher()
+    public void RemoveStationTeacher(GameObject leavingTeacher)
     {
-        teacher = null;
+        teacherList.Remove(leavingTeacher);
     }
 
 
