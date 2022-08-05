@@ -27,9 +27,9 @@ public class InfoPanel : MonoBehaviour
     private GameObject contentParent; //contains the content object of the scroll view which we want to build off.
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        fileUtilities.GetSkills(charSkillDictionary);
+        charSkillDictionary = fileUtilities.GetSkills();
         skillTextPrefab = Resources.Load<GameObject>("Skill Text Prefab");
         CreateSkillList();
     }
@@ -38,7 +38,8 @@ public class InfoPanel : MonoBehaviour
     {
 
         float spacingHeight = CalculateSize(charSkillDictionary.Count);
-        float currentHeight = skillTextPrefab.GetComponent<RectTransform>().rect.height;
+        //float currentHeight = skillTextPrefab.GetComponent<RectTransform>().rect.height;
+        float currentHeight = 0;
 
         
         Debug.Log("Count! " + charSkillDictionary.Count);
@@ -48,8 +49,9 @@ public class InfoPanel : MonoBehaviour
             SkillTextPrefab stp = currentSkillObject.GetComponent<SkillTextPrefab>();
             stp.SetName(kvp.Key);
             stp.SetValue(kvp.Value);
-            currentSkillObject.transform.position = new Vector3(0, currentHeight);
-            currentHeight = -spacingHeight;
+            currentSkillObject.transform.SetParent(contentParent.transform);
+            currentSkillObject.transform.localPosition = new Vector3(0, currentHeight);
+            currentHeight -= spacingHeight;
             skillPanelDictionary.Add(kvp.Key, currentSkillObject); //add the completed object to the dictionary.
         }
 
@@ -65,10 +67,15 @@ public class InfoPanel : MonoBehaviour
         float totalHeight = prefabHeight + verticalContentPadding; //this is the amount of space each object takes up.
         float neededSpace = skillAmount * totalHeight; //This is the space needed on the content scrollbar to display all of the skills.
         RectTransform contentParentRect = contentParent.GetComponent<RectTransform>();
-        contentParentRect.sizeDelta = new Vector2(contentParentRect.rect.width, neededSpace);
+        contentParentRect.sizeDelta = new Vector2(contentParentRect.rect.xMax, neededSpace);
 
         return totalHeight;
 
+    }
+
+    private void TestReadDict()
+    {
+        
     }
 
     //The list needs to be easy to update.

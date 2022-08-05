@@ -83,19 +83,24 @@ public class FileUtilities: MonoBehaviour
         return creatureOptions;
     }
 
+    
     public Dictionary<string, int> GetSkills()
     {
+        /*
         foreach(KeyValuePair<string, int> kvp in skillDictionary)
         {
             Debug.Log("this is a skill! " + kvp.Key);
         }
+        */
         return skillDictionary;
     }
+    
 
     public void GetSkills(Dictionary<string, int> newDict)
     {
         foreach(KeyValuePair<string, int> kvp in skillDictionary)
         {
+            //Debug.Log(kvp.Key + " " + kvp.Value);
             newDict.Add(kvp.Key, kvp.Value);
         }
     }
