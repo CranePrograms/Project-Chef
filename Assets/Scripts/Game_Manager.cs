@@ -8,6 +8,9 @@ public class Game_Manager : MonoBehaviour
     GameObject lastSelectedObject = null; //this is the last Object selected.
     GameObject selectedObject = null; //this is the currently selected Object
 
+    [SerializeField]
+    private InfoPanel infoPanel;
+
     public void SetSelectedObject(GameObject newSelection)
     {
         /*
@@ -47,10 +50,12 @@ public class Game_Manager : MonoBehaviour
                 selectedObject = newSelection;
                 Debug.Log("Selected " + selectedObject.GetComponent<Creature>().creatureName.ToString());
                 SetSelectionSprite(selectedObject, true);
+                infoPanel.ChangeSelectedCharacter(selectedObject.GetComponent<Creature>().GetSkills());
                 break;
             case "Teacher":
                 selectedObject = newSelection;
                 SetSelectionSprite(selectedObject, true);
+                infoPanel.ChangeSelectedCharacter(selectedObject.GetComponent<Creature>().GetSkills());
                 break;
 
             default:

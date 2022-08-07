@@ -69,6 +69,12 @@ public class Creature : MonoBehaviour
         
     }
 
+    public Dictionary<string, int> GetSkills()
+    {
+        return skillsDictionary;
+    }
+
+
     //Use this to add points to any of the stats this student has.
     public void AddStats(int INT = 0, int CHAR = 0, int END = 0, int DEX = 0)
     {

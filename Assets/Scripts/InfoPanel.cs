@@ -37,9 +37,9 @@ public class InfoPanel : MonoBehaviour
     private void CreateSkillList()
     {
 
-        float spacingHeight = CalculateSize(charSkillDictionary.Count);
+        //float spacingHeight = CalculateSize(charSkillDictionary.Count);
         //float currentHeight = skillTextPrefab.GetComponent<RectTransform>().rect.height;
-        float currentHeight = 0;
+        //float currentHeight = 0;
 
         
         Debug.Log("Count! " + charSkillDictionary.Count);
@@ -50,8 +50,8 @@ public class InfoPanel : MonoBehaviour
             stp.SetName(kvp.Key);
             stp.SetValue(kvp.Value);
             currentSkillObject.transform.SetParent(contentParent.transform);
-            currentSkillObject.transform.localPosition = new Vector3(0, currentHeight);
-            currentHeight -= spacingHeight;
+            //currentSkillObject.transform.localPosition = new Vector3(0, currentHeight);
+            //currentHeight -= spacingHeight;
             skillPanelDictionary.Add(kvp.Key, currentSkillObject); //add the completed object to the dictionary.
         }
 
@@ -62,20 +62,36 @@ public class InfoPanel : MonoBehaviour
     //Returns the amount of units of distance between object placements.
     private float CalculateSize(int skillAmount)
     {
-
+        
+        RectTransform contentRect = contentParent.GetComponent<RectTransform>();
+        float contentHeight = contentRect.rect.height;
         float prefabHeight = skillTextPrefab.GetComponent<RectTransform>().rect.height;
         float totalHeight = prefabHeight + verticalContentPadding; //this is the amount of space each object takes up.
         float neededSpace = skillAmount * totalHeight; //This is the space needed on the content scrollbar to display all of the skills.
-        RectTransform contentParentRect = contentParent.GetComponent<RectTransform>();
-        contentParentRect.sizeDelta = new Vector2(contentParentRect.rect.xMax, neededSpace);
+        float neededScale = neededSpace / contentHeight;
+        contentRect.localScale = new Vector3(contentRect.localScale.x, neededScale, contentRect.localScale.z);
+        //RectTransform contentParentRect = contentParent.GetComponent<RectTransform>();
+        
 
         return totalHeight;
 
     }
 
-    private void TestReadDict()
+    public void ChangeSelectedCharacter(Dictionary<string, int> newDict)
     {
-        
+        foreach(KeyValuePair<string, int> kvp in newDict)
+        {
+            GameObject tempObj;
+
+            if(skillPanelDictionary.TryGetValue(kvp.Key, out tempObj))
+            {
+                Debug.Log("This far without Error");
+                tempObj.GetComponent<SkillTextPrefab>().SetValue(kvp.Value);
+            } else
+            {
+                Debug.LogError("Couldn't find the skill while changing dictionary's in InfoPanel.cs/ChangeSelectedCharacter!");
+            }
+        }
     }
 
     //The list needs to be easy to update.
